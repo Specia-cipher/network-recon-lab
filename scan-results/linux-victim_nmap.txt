@@ -1,4 +1,4 @@
-# Nmap 7.94SVN scan initiated Wed Jun  4 08:44:09 2025 as: nmap -A -T4 -oN - linux-victim
+# Nmap 7.94SVN scan initiated Fri Jun  6 07:33:34 2025 as: nmap -A -T4 -oN - linux-victim
 Failed to resolve "linux-victim".
 WARNING: No targets were specified, so 0 hosts scanned.
-# Nmap done at Wed Jun  4 08:44:13 2025 -- 0 IP addresses (0 hosts up) scanned in 3.20 seconds
+# Nmap done at Fri Jun  6 07:33:34 2025 -- 0 IP addresses (0 hosts up) scanned in 0.46 seconds
