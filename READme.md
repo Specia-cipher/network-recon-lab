@@ -70,6 +70,35 @@ Write custom parsers to summarize Nmap results
 📎 Related Projects
 You can find my Vulnerable Bank App — a Dockerized web pentesting lab — as a companion project.
 
+## 📄 Nmap Scan Parsing (New Feature)
+
+To improve readability and reporting, this project now includes a parsing script that automatically extracts key information from raw Nmap scans and generates human-readable summaries.
+
+### 🔧 How It Works
+- The script `parse_nmap.py` reads raw `.txt` output files in the `scan-results/` directory.
+- For each scan file (e.g., `vulbapp_nmap.txt`), it creates a corresponding summary file (e.g., `vulbapp_summary.txt`).
+- Summaries include:
+  - Host and IP information
+  - Open ports and associated services
+  - Basic version info of detected services
+
+### 📁 File Structure (Updated)
+
+network-recon-lab/
+├── recon.py # Automated Nmap scanning script
+├── parse_nmap.py # New! Script to extract summaries from scans
+├── scan-results/ # Organized scan outputs
+│ ├── vulbapp_nmap.txt # Full raw Nmap output
+│ ├── vulbapp_summary.txt # Parsed summary output
+│ └── ...
+└── README.md # You're here!
+
+
+### 🧪 Usage
+```bash
+python3 parse_nmap.py
+
+
 🙋‍♂️ About Me
 I'm a cybersecurity enthusiast currently focusing on:
 
