@@ -2,4 +2,5 @@ Summary for vulbapp:
 
 Open ports and services:
 
+- Port 80/tcp: http Apache httpd 2.4.62 ((Debian))
 

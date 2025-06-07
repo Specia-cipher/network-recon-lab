@@ -2,4 +2,6 @@ Summary for smb-server:
 
 Open ports and services:
 
+- Port 139/tcp: netbios-ssn Samba smbd 4.6.2
+- Port 445/tcp: netbios-ssn Samba smbd 4.6.2
 

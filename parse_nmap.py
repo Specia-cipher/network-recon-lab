@@ -12,13 +12,14 @@ def parse_nmap_output(file_path):
     summary_lines.append(f"Summary for {target_name}:\n")
     summary_lines.append("Open ports and services:\n")
 
-    port_line_pattern = re.compile(r"^(\d+/tcp)\s+open\s+([^\s]+)(\s+(.*))?")
+    # Updated regex pattern for port/service matching
+    port_line_pattern = re.compile(r"^\s*(\d+/tcp)\s+open\s+(\S+)(?:\s+(.*))?")
     for line in lines:
         match = port_line_pattern.match(line)
         if match:
             port = match.group(1)
             service = match.group(2)
-            extra_info = match.group(4) if match.group(4) else ""
+            extra_info = match.group(3) if match.group(3) else ""
             summary_lines.append(f"  - Port {port}: {service} {extra_info}".strip())
     
     summary_lines.append("\n")
@@ -29,10 +30,11 @@ def main():
     for file in files:
         file_path = os.path.join(SCAN_RESULTS_DIR, file)
         summary = parse_nmap_output(file_path)
-        summary_file = file_path.replace("_nmap.txt", "_summary.txt")
+        summary_file = os.path.join(SCAN_RESULTS_DIR, file.replace("_nmap.txt", "_summary.txt"))
         with open(summary_file, "w") as sf:
             sf.write(summary)
         print(f"Summary written to {summary_file}")
 
 if __name__ == "__main__":
     main()
+
