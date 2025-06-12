@@ -1,0 +1,6 @@
+Summary for ftp-server:
+
+Open ports and services:
+
+- Port 21/tcp: ftp Pure-FTPd
+
