@@ -98,6 +98,60 @@ network-recon-lab/
 ```bash
 python3 parse_nmap.py
 
+🐍 Cowrie SSH Honeypot (New Component)
+To simulate real-world attack patterns and unauthorized SSH access attempts, the lab now includes a Cowrie honeypot container.
+
+🛠️ Features
+Emulates an interactive SSH server (and optionally Telnet)
+
+Logs attacker keystrokes, commands, and download attempts
+
+Captures unauthorized login attempts with full session transcripts
+
+Stores downloaded payloads for offline malware analysis
+
+⚙️ Setup Overview
+Cowrie was set up inside a dedicated Docker container with the following configuration:
+
+SSH port: 2222
+
+Fake filesystem and command interface
+
+Output logs stored locally for review and analysis
+
+🔍 Example Logs
+Captured events include:
+
+Failed SSH login attempts
+
+Commands issued by simulated attackers
+
+Attempts to download or exfiltrate data
+
+Sample log entry:
+
+pgsql
+Copy
+Edit
+2025-06-18T11:04:52+0000 [SSHService ssh-userauth on HoneyPotSSHTransport,0,192.168.1.105] login attempt [root/123456] failed
+📂 File Locations
+Cowrie logs: cowrie/var/log/cowrie.log
+
+Payloads: cowrie/dl/
+
+Config: cowrie/etc/cowrie.cfg
+
+🎯 Purpose
+Including Cowrie in the recon lab allows testing of:
+
+Alerting and log review processes
+
+Incident detection response workflows
+
+Behavioral analysis of brute-force scripts and bots
+
+
+
 
 🙋‍♂️ About Me
 I'm a cybersecurity enthusiast currently focusing on:
