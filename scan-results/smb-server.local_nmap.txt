@@ -1,0 +1,18 @@
+# Nmap 7.94SVN scan initiated Sat Jun  7 20:08:24 2025 as: nmap -A -T4 -oN scan-results/smb-server.local_nmap.txt smb-server.local
+Nmap scan report for smb-server.local (172.19.0.4)
+Host is up (0.00041s latency).
+Not shown: 998 closed tcp ports (conn-refused)
+PORT    STATE SERVICE     VERSION
+139/tcp open  netbios-ssn Samba smbd 4.6.2
+445/tcp open  netbios-ssn Samba smbd 4.6.2
+
+Host script results:
+| smb2-security-mode: 
+|   3:1:1: 
+|_    Message signing enabled but not required
+| smb2-time: 
+|   date: 2025-06-07T19:08:38
+|_  start_date: N/A
+
+Service detection performed. Please report any incorrect results at https://nmap.org/submit/ .
+# Nmap done at Sat Jun  7 20:08:41 2025 -- 1 IP address (1 host up) scanned in 16.84 seconds

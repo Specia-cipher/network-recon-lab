@@ -1,0 +1,62 @@
+[
+    {
+        "location": "url",
+        "payload": "\"><script>alert(\"XSS1\")</script>",
+        "success": false
+    },
+    {
+        "location": "input",
+        "payload": "\"><script>alert(\"XSS1\")</script>",
+        "success": false
+    },
+    {
+        "location": "localstorage",
+        "payload": "\"><script>alert(\"XSS1\")</script>",
+        "success": false
+    },
+    {
+        "location": "url",
+        "payload": "'><img src=x onerror=alert(\"XSS2\")>",
+        "success": false
+    },
+    {
+        "location": "input",
+        "payload": "'><img src=x onerror=alert(\"XSS2\")>",
+        "success": false
+    },
+    {
+        "location": "localstorage",
+        "payload": "'><img src=x onerror=alert(\"XSS2\")>",
+        "success": false
+    },
+    {
+        "location": "url",
+        "payload": "\"><svg onload=alert(\"SVG\")>",
+        "success": false
+    },
+    {
+        "location": "input",
+        "payload": "\"><svg onload=alert(\"SVG\")>",
+        "success": false
+    },
+    {
+        "location": "localstorage",
+        "payload": "\"><svg onload=alert(\"SVG\")>",
+        "success": false
+    },
+    {
+        "location": "url",
+        "payload": "\"><iframe src=javascript:alert(\"XSS3\")>",
+        "success": false
+    },
+    {
+        "location": "input",
+        "payload": "\"><iframe src=javascript:alert(\"XSS3\")>",
+        "success": false
+    },
+    {
+        "location": "localstorage",
+        "payload": "\"><iframe src=javascript:alert(\"XSS3\")>",
+        "success": false
+    }
+]

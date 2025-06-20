@@ -1,0 +1,6 @@
+ftp-server.local
+smb-server.local
+vulbapp.local
+attacker.local
+linux-victim.local
+juice-shop.local

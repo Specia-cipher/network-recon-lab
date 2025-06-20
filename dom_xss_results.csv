@@ -1,0 +1,13 @@
+location,payload,success
+url,"""><script>alert(""XSS1"")</script>",False
+input,"""><script>alert(""XSS1"")</script>",False
+localstorage,"""><script>alert(""XSS1"")</script>",False
+url,"'><img src=x onerror=alert(""XSS2"")>",False
+input,"'><img src=x onerror=alert(""XSS2"")>",False
+localstorage,"'><img src=x onerror=alert(""XSS2"")>",False
+url,"""><svg onload=alert(""SVG"")>",False
+input,"""><svg onload=alert(""SVG"")>",False
+localstorage,"""><svg onload=alert(""SVG"")>",False
+url,"""><iframe src=javascript:alert(""XSS3"")>",False
+input,"""><iframe src=javascript:alert(""XSS3"")>",False
+localstorage,"""><iframe src=javascript:alert(""XSS3"")>",False
