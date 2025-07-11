@@ -1,135 +1,128 @@
-# 🛰️ Network Reconnaissance Lab
+# 🛰️ Network Reconnaissance Lab v2.0
 
-This lab simulates a real-world network environment for practicing **network reconnaissance**, enumeration, and automation using Python and Nmap. Designed as a modular playground for pentesters and bug bounty hunters.
+Welcome to **Network Recon Lab**, a modular, multi-tool environment built for practicing **network reconnaissance** and basic enumeration techniques. This upgrade introduces **multi-threaded scanning**, cleaner automation workflows, and prepares the ground for a future **Recon Dashboard** UI.
+
+---
+
+## 📦 Features
+
+- 🔥 **Modular tools**: Each script targets a specific reconnaissance or parsing task.
+- ⚡ **Multi-threaded scans**: Faster, efficient network sweeps (via `auto_scan.py`).
+- 📊 **Structured scan results**: Organized outputs in `scan-results/`, ready for parsing or reporting.
+- 🕵️ **DOM XSS tester**: Uses Selenium to hunt DOM-based XSS vulnerabilities.
+- 🛠️ **Update utilities**: Quickly refresh `/etc/hosts`, restart containers, or update targets list.
+- ✅ **Termux friendly**: All tools tested on Termux, BackBox, and Ubuntu.
 
 ---
 
 ## 📂 Project Structure
 
-network-recon-lab/ ├── recon.py                # Automated Nmap scanning script ├── parse_nmap.py           # Parses Nmap output into summaries ├── dom_xss_checker.py      # Checks for DOM-based XSS in targets ├── auto_recon.py           # Chains recon tasks for multiple hosts ├── targets.txt             # List of target hosts/IPs ├── scan-results/           # Stores raw and parsed scan outputs │   ├── vulbapp_nmap.txt │   ├── smb-server_nmap.txt │   ├── ftp-server_nmap.txt │   ├── vulbapp_summary.txt │   └── ... └── cowrie-setup/           # Scripts for deploying Cowrie SSH honeypot
+network-recon-lab/ ├── auto_scan.py           # Multi-threaded Nmap automation ├── parse_nmap.py          # Parses raw Nmap output into summaries ├── dom_xss_checker.py     # Automated DOM XSS fuzzing ├── scan-results/          # Folder for all scan outputs ├── targets.txt            # List of targets for scanning ├── update_hosts.sh        # Utility: Update /etc/hosts with lab targets ├── restart-exited-containers.sh  # Utility: Restart stopped containers └── README.md              # You're here!
 
 ---
 
-## 🚀 Lab Overview
+## ⚡ Quickstart
 
-This lab replicates the **Reconnaissance Phase** of a real penetration test. It includes:  
+1. **Clone the repo:**
+   ```bash
+   git clone https://github.com/Specia-cipher/network-recon-lab.git
+   cd network-recon-lab
 
-- Scanning simulated targets for open ports/services  
-- Parsing scan results for key insights  
-- A DOM-based XSS checker for web targets  
-- Cowrie honeypot for SSH attack emulation  
-- Modular Python automation to tie it all together  
+2. Install dependencies:
 
----
+Nmap
 
-## 🕵️‍♂️ How It Works
+Python 3, pip packages: colorama, selenium
 
-### 🔎 Reconnaissance Automation
+GeckoDriver (for dom_xss_checker.py)
 
-The `recon.py` script uses Nmap to scan targets from `targets.txt`. It stores results in `scan-results/`.
-
-```bash
-python3 recon.py
-
-📄 Sample Output (vulbapp_nmap.txt):
-
-PORT   STATE SERVICE VERSION
-21/tcp open  ftp     vsftpd 3.0.3
-80/tcp open  http    Apache httpd 2.4.41
-139/tcp open  netbios-ssn Samba smbd 4.10.16
-445/tcp open  microsoft-ds Samba smbd 4.10.16
+(Optional) Docker for future dashboard integration
 
 
----
 
-📑 Parsing Nmap Results
+3. Add targets to targets.txt:
 
-For cleaner reports, run:
+10.0.0.5
+example.com
+192.168.1.10
+
+
+4. Run a scan:
+
+python3 auto_scan.py --scan fast
+python3 auto_scan.py --scan full
+
+
+5. Parse results:
 
 python3 parse_nmap.py
 
-📄 Sample Summary (vulbapp_summary.txt):
 
-Host: vulbapp.local (192.168.56.105)
-Open Ports:
- - 21/tcp (ftp)
- - 80/tcp (http)
- - 445/tcp (Samba)
-
-
----
-
-🕸️ DOM XSS Checker
-
-Scan web apps for DOM-based XSS vectors:
+6. Test for DOM XSS:
 
 python3 dom_xss_checker.py
 
-📄 Sample Output:
-
-Found potential DOM XSS in /app.js at line 45:
-document.write(location.hash)
-
-
----
-
-🐍 Cowrie SSH Honeypot
-
-Cowrie deployed natively to log brute force SSH attacks and collect malware samples.
-
-📄 Captured Logs:
-
-2025-06-18 11:04:52 login attempt [root/123456] failed
-2025-06-18 11:05:07 login attempt [admin/admin] succeeded
-
-
----
-
-🎯 Learning Objectives
-
-✅ Automate enumeration workflows with Python
-✅ Gain hands-on experience with Nmap scanning and parsing
-✅ Simulate attacker behaviors using honeypots
-✅ Build reporting habits critical for penetration testing
-
-
----
-
-⚡ Getting Started
-
-1. Install prerequisites:
-
-sudo apt update && sudo apt install nmap python3
-
-
-2. Add target hosts to targets.txt.
-
-
-3. Run scripts as needed from project root.
-
 
 
 
 ---
 
-📖 Notes
+📖 Usage Examples
 
-🖥️ Environment: Backbox Linux VM (bare-metal, no containers)
+🚀 Fast Nmap Scan
 
-⚠️ For educational purposes only. Do NOT run against networks you don’t own or have explicit permission to test.
+python3 auto_scan.py --scan fast
+
+📊 Generate Summaries
+
+python3 parse_nmap.py
+
+🕷️ DOM XSS Fuzzing
+
+python3 dom_xss_checker.py
+
+
+---
+
+🛠️ Termux Tips
+
+> Yes, it works in Termux!
+Install dependencies:
+
+
+
+pkg install nmap python
+pip install colorama selenium
+
+
+---
+
+📌 Next Up (v3 Roadmap)
+
+🌐 Recon Dashboard: Web UI to view scan results in real time.
+
+🐳 Docker support for one-command deployment.
+
+📡 Integration of vulnerability scanners (Nikto, OpenVAS).
+
+🧠 Smarter parsing: JSON, CSV, and PDF reports.
 
 
 
 ---
 
-✨ About the Author
+👨‍💻 About the Author
 
-Sanni Babatunde Idris
-LinkedIn 🔗 • GitHub 🔗
+Built with passion by Sanni Idris (Specia-cipher) 🌍
+A cybersecurity enthusiast and future DevSecOps Engineer.
+"Luxury or Nothing."
 
 
 ---
 
-© 2025 Sanni Babatunde Idris. All rights reserved.
+📜 License
+
+This project is open-sourced for educational and non-commercial use.
+Feel free to fork, hack, and suggest improvements.
 
 ---
