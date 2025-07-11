@@ -1,0 +1,16 @@
+{
+    "target": "smb-server.local",
+    "date": "2025-07-11T08:32:50.074507",
+    "open_ports": [
+        {
+            "port": "139/tcp",
+            "service": "netbios-ssn",
+            "details": "Samba smbd 4.6.2"
+        },
+        {
+            "port": "445/tcp",
+            "service": "netbios-ssn",
+            "details": "Samba smbd 4.6.2"
+        }
+    ]
+}

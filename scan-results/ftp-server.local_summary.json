@@ -1,0 +1,11 @@
+{
+    "target": "ftp-server.local",
+    "date": "2025-07-11T08:32:50.049658",
+    "open_ports": [
+        {
+            "port": "21/tcp",
+            "service": "ftp",
+            "details": "Pure-FTPd"
+        }
+    ]
+}

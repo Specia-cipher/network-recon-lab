@@ -1,0 +1,11 @@
+{
+    "target": "vulbapp.local",
+    "date": "2025-07-11T08:32:50.088695",
+    "open_ports": [
+        {
+            "port": "80/tcp",
+            "service": "http",
+            "details": "Apache httpd 2.4.62 ((Debian))"
+        }
+    ]
+}

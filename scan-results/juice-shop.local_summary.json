@@ -1,0 +1,11 @@
+{
+    "target": "juice-shop.local",
+    "date": "2025-07-11T08:32:50.058399",
+    "open_ports": [
+        {
+            "port": "3000/tcp",
+            "service": "ppp?",
+            "details": ""
+        }
+    ]
+}

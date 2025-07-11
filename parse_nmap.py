@@ -1,40 +1,81 @@
+#!/usr/bin/env python3
+"""
+parse_nmap.py - Chivita Edition
+by GenCipher (https://github.com/Specia-cipher)
+
+Parses Nmap scan results and generates clean JSON and HTML summaries.
+"""
+
 import os
 import re
+import json
+from pathlib import Path
+from datetime import datetime
+try:
+    from colorama import Fore, Style, init
+    init(autoreset=True)
+except ImportError:
+    print("Colorama not installed. Run: pip install colorama")
+    exit(1)
 
-SCAN_RESULTS_DIR = "scan-results"
+SCAN_RESULTS_DIR = Path("scan-results")
 
 def parse_nmap_output(file_path):
-    summary_lines = []
-    with open(file_path, "r") as f:
-        lines = f.readlines()
-    
-    target_name = os.path.basename(file_path).replace("_nmap.txt", "")
-    summary_lines.append(f"Summary for {target_name}:\n")
-    summary_lines.append("Open ports and services:\n")
+    """Parse Nmap text output into structured data"""
+    results = {
+        "target": file_path.stem.replace("_nmap", ""),
+        "date": datetime.now().isoformat(),
+        "open_ports": []
+    }
 
-    # Updated regex pattern for port/service matching
-    port_line_pattern = re.compile(r"^\s*(\d+/tcp)\s+open\s+(\S+)(?:\s+(.*))?")
-    for line in lines:
-        match = port_line_pattern.match(line)
-        if match:
-            port = match.group(1)
-            service = match.group(2)
-            extra_info = match.group(3) if match.group(3) else ""
-            summary_lines.append(f"  - Port {port}: {service} {extra_info}".strip())
-    
-    summary_lines.append("\n")
-    return "\n".join(summary_lines)
+    port_pattern = re.compile(r"^\s*(\d+/tcp)\s+open\s+(\S+)\s*(.*)")
+    with open(file_path, "r") as f:
+        for line in f:
+            match = port_pattern.match(line)
+            if match:
+                port_info = {
+                    "port": match.group(1),
+                    "service": match.group(2),
+                    "details": match.group(3).strip()
+                }
+                results["open_ports"].append(port_info)
+    return results
+
+def save_json_summary(data, output_file):
+    """Save parsed data as JSON"""
+    with open(output_file, "w", encoding="utf-8") as jf:
+        json.dump(data, jf, indent=4)
+    print(f"{Fore.GREEN}[+] JSON summary saved: {output_file}{Style.RESET_ALL}")
+
+def save_html_summary(data, output_file):
+    """Save parsed data as HTML"""
+    html = f"<html><head><title>Scan Summary for {data['target']}</title></head><body>"
+    html += f"<h2>Scan Summary for {data['target']}</h2><p>Date: {data['date']}</p>"
+    html += "<table border='1' cellpadding='5'><tr><th>Port</th><th>Service</th><th>Details</th></tr>"
+    for port in data['open_ports']:
+        html += f"<tr><td>{port['port']}</td><td>{port['service']}</td><td>{port['details']}</td></tr>"
+    html += "</table></body></html>"
+
+    with open(output_file, "w", encoding="utf-8") as hf:
+        hf.write(html)
+    print(f"{Fore.GREEN}[+] HTML summary saved: {output_file}{Style.RESET_ALL}")
 
 def main():
-    files = [f for f in os.listdir(SCAN_RESULTS_DIR) if f.endswith("_nmap.txt")]
-    for file in files:
-        file_path = os.path.join(SCAN_RESULTS_DIR, file)
-        summary = parse_nmap_output(file_path)
-        summary_file = os.path.join(SCAN_RESULTS_DIR, file.replace("_nmap.txt", "_summary.txt"))
-        with open(summary_file, "w") as sf:
-            sf.write(summary)
-        print(f"Summary written to {summary_file}")
+    print(f"{Fore.CYAN}[*] Parsing Nmap results in '{SCAN_RESULTS_DIR}'...{Style.RESET_ALL}")
+    nmap_files = list(SCAN_RESULTS_DIR.glob("*_nmap.txt"))
+
+    if not nmap_files:
+        print(f"{Fore.RED}[!] No Nmap result files found in '{SCAN_RESULTS_DIR}'{Style.RESET_ALL}")
+        return
+
+    for file in nmap_files:
+        parsed_data = parse_nmap_output(file)
+        json_file = file.with_name(file.stem.replace("_nmap", "_summary") + ".json")
+        html_file = file.with_name(file.stem.replace("_nmap", "_summary") + ".html")
+        save_json_summary(parsed_data, json_file)
+        save_html_summary(parsed_data, html_file)
+
+    print(f"{Fore.GREEN}[✓] All summaries generated successfully.{Style.RESET_ALL}")
 
 if __name__ == "__main__":
     main()
-
